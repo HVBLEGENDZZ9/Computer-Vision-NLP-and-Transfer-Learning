@@ -83,4 +83,19 @@ def walk_through(dir):
   import os
   for root,dirname,files in os.walk(dir):
     print(f'THERE ARE {len(dirname)} SUB DIRECTORIES AND {len(files)} FILES IN THIS DIRECTORY')
+def plot_curves(history):
+  train_loss = history.history["loss"]
+  val_loss = history.history["val_loss"]
+  train_accuracy = history.history["accuracy"]
+  val_accuracy = history.history["val_accuracy"]
+  epochs = range(len(history.history["loss"]))
+  plt.plot(epochs,train_loss,val_loss)
+  plt.grid(True)
+  plt.title("TRAINING LOSS VS VALIDATION LOSS")
+  plt.legend(["TRAINING LOSS","VALIDATION LOSS"])
+  plt.figure()
+  plt.plot(epochs,train_accuracy,val_accuracy)
+  plt.grid(True)
+  plt.title("TRAINING ACCURACY VS VALIDATION ACCURACY")
+  plt.legend(["TRAINING ACCURACY","VALIDATION ACCURACY"])
 
