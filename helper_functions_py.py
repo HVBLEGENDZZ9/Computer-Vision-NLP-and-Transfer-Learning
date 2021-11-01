@@ -136,6 +136,10 @@ def random_augumented_img_plotter(dir,class_names,aug_layer):
   rand_img = random.choice(os.listdir(classdir))
   img = classdir + "/" + rand_img
   img = mpimg.imread(img)
+  plt.imshow(img)
+  plt.axis(False)
+  plt.title(c)
+  plt.figure()
   img = aug_layer(tf.expand_dims(img,axis=0))
   plt.imshow(tf.squeeze(img)/255.)
   plt.axis(False)
