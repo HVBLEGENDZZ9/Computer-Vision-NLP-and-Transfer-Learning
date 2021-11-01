@@ -10,6 +10,9 @@ Original file is located at
 import matplotlib.pyplot as plt
 import seaborn as sns
 import tensorflow as tf
+import random
+import os
+import matplotlib.image as mpimg 
 def plot_curves(history):
   '''
   Args: history of .fit() operation
@@ -37,7 +40,6 @@ def plot_confusion_matrix(cm,class_names,figsize=(12,12)):
   function: plots a confusion matrix using seaborn heatmap
   returns: none
   '''
-  import seaborn as sns
   plt.figure(figsize=figsize)
   sns.heatmap(cm/np.sum(cm),
               annot=True,
@@ -113,10 +115,6 @@ def random_img_plotter(dir,class_names):
   function: plot a random image from the dataset
   returns: none
   '''
-  import random
-  import os
-  import matplotlib.pyplot as plt
-  import matplotlib.image as mpimg 
   c = random.choice(class_names)
   classdir = dir + "/" + c
   rand_img = random.choice(os.listdir(classdir))
@@ -133,11 +131,6 @@ def random_augumented_img_plotter(dir,class_names,aug_layer):
   function: plot a random augumented image from the dataset
   returns: none
   '''
-  import tensorflow as tf
-  import random
-  import os
-  import matplotlib.pyplot as plt
-  import matplotlib.image as mpimg 
   c = random.choice(class_names)
   classdir = dir + "/" + c
   rand_img = random.choice(os.listdir(classdir))
