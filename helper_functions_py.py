@@ -83,7 +83,14 @@ def walk_through(dir):
   import os
   for root,dirname,files in os.walk(dir):
     print(f'THERE ARE {len(dirname)} SUB DIRECTORIES AND {len(files)} FILES IN THIS DIRECTORY')
+    
+    
 def plot_curves(history):
+  '''
+  Args: history of model.fit
+  function: plots the loss and accuracy curves for training and validation data
+  returns: none
+  '''
   train_loss = history.history["loss"]
   val_loss = history.history["val_loss"]
   train_accuracy = history.history["accuracy"]
@@ -99,3 +106,44 @@ def plot_curves(history):
   plt.title("TRAINING ACCURACY VS VALIDATION ACCURACY")
   plt.legend(["TRAINING ACCURACY","VALIDATION ACCURACY"])
 
+
+def random_img_plotter(dir,class_names):
+  '''
+  Args: name of the directory and list of class names
+  function: plot a random image from the dataset
+  returns: none
+  '''
+  import random
+  import os
+  import matplotlib.pyplot as plt
+  import matplotlib.image as mpimg 
+  c = random.choice(class_names)
+  classdir = dir + "/" + c
+  rand_img = random.choice(os.listdir(classdir))
+  img = classdir + "/" + rand_img
+  img = mpimg.imread(img)
+  plt.imshow(img)
+  plt.axis("off")
+  plt.title(c)
+
+
+def random_augumented_img_plotter(dir,class_names,aug_layer):
+  '''
+  Args: name of the directory, list of class names and aug_layer
+  function: plot a random augumented image from the dataset
+  returns: none
+  '''
+  import tensorflow as tf
+  import random
+  import os
+  import matplotlib.pyplot as plt
+  import matplotlib.image as mpimg 
+  c = random.choice(class_names)
+  classdir = dir + "/" + c
+  rand_img = random.choice(os.listdir(classdir))
+  img = classdir + "/" + rand_img
+  img = mpimg.imread(img)
+  img = aug_layer(tf.expand_dims(img,axis=0))
+  plt.imshow(tf.squeeze(img)/255.)
+  plt.axis(False)
+  plt.title(c)
