@@ -144,3 +144,39 @@ def random_augumented_img_plotter(dir,class_names,aug_layer):
   plt.imshow(tf.squeeze(img)/255.)
   plt.axis(False)
   plt.title(c)
+
+    
+def compare_history(historyo,historyl,initial_epochs = 5):
+  '''
+  Args: historyo-original history(eg: before fine tuning)
+        history1-later history(eg: after fine tuning)
+  function: plots the curves to compare histories
+  returns: none
+  '''
+  import matplotlib.pyplot as plt
+  #loss data
+  original_training_loss = historyo.history["loss"]
+  original_validation_loss = historyo.history["val_loss"]
+  latest_training_loss = historyo.history["loss"] + historyl.history["loss"]
+  latest_validation_loss = historyo.history["val_loss"] + historyl.history["val_loss"]
+  #accuracy data
+  original_training_acc = historyo.history["accuracy"]
+  original_validation_acc = historyo.history["val_accuracy"]
+  latest_training_acc = historyo.history["accuracy"] + historyl.history["accuracy"]
+  latest_validation_acc = historyo.history["val_accuracy"] + historyl.history["val_accuracy"]
+  #plotting
+  plt.figure(figsize=(8,8))
+  plt.subplot(2,1,1)
+  plt.grid(True)
+  plt.plot(latest_training_loss,label = "TRAINING LOSS")
+  plt.plot(latest_validation_loss,label = "VALIDATION LOSS")
+  plt.plot([initial_epochs-1,initial_epochs-1],plt.ylim(),label = "BEGGINGING OF FINE TUNING")
+  plt.title("TRAINING LOSS VS VALIDATION LOSS ")
+  plt.legend(loc = "upper right")
+  plt.subplot(2,1,2)
+  plt.grid(True)
+  plt.plot(latest_training_acc,label = "TRAINING ACCURACY")
+  plt.plot(latest_validation_acc,label = "VALIDATION ACCURACY")
+  plt.plot([initial_epochs-1,initial_epochs-1],plt.ylim(),label = "BEGGINGING OF FINE TUNING")
+  plt.title("TRAINING ACCURACY VS VALIDATION ACCURACY ")
+  plt.legend(loc = "lower right")
