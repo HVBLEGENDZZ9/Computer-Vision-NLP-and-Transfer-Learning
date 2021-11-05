@@ -40,6 +40,9 @@ def plot_confusion_matrix(cm,class_names,figsize=(12,12)):
   function: plots a confusion matrix using seaborn heatmap
   returns: none
   '''
+  import matplotlib.pyplot as plt
+  import seaborn as sns
+  import numpy as np 
   plt.figure(figsize=figsize)
   sns.heatmap(cm/np.sum(cm),
               annot=True,
