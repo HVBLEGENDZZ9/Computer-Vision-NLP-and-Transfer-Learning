@@ -183,3 +183,31 @@ def compare_history(historyo,historyl,initial_epochs = 5):
   plt.plot([initial_epochs-1,initial_epochs-1],plt.ylim(),label = "BEGGINGING OF FINE TUNING")
   plt.title("TRAINING ACCURACY VS VALIDATION ACCURACY ")
   plt.legend(loc = "lower right")
+    
+    
+def random_img_prediction_plotter(model,dir,class_names):
+  '''
+  Args: model, name of the directory from where we can choose the random images and class names
+  function: select 3 random images and plot them along with the prediction of the given model
+  returns: none
+  '''
+  import os
+  import random
+  import matplotlib.image as mpimg
+  plt.figure(figsize=(17,10))
+  for j in range(3):
+    i = random.choice(class_names)
+    target = dir + "/" + i
+    random_img = random.choice(os.listdir(target))
+    target = target + "/" + random_img
+    img = load_prep_image(target)
+    pred = model.predict(tf.expand_dims(img,axis=0))
+    predicted_class = class_names[pred.argmax()]
+    #plotting
+    plt.subplot(1,3,j+1)
+    plt.imshow(img/255.)
+    plt.axis("off")
+    if(predicted_class == i):
+      plt.title(f"ACTUAL:{i} PREDICTED:{predicted_class}",c = "g")
+    else:
+      plt.title(f"ACTUAL:{i} PREDICTED:{predicted_class}",c = "r")
