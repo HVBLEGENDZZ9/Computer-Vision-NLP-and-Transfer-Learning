@@ -202,12 +202,13 @@ def random_img_prediction_plotter(model,dir,class_names):
     target = target + "/" + random_img
     img = load_prep_image(target)
     pred = model.predict(tf.expand_dims(img,axis=0))
+    pred_prob = np.round(np.amax(pred),decimals=2)
     predicted_class = class_names[pred.argmax()]
     #plotting
     plt.subplot(1,3,j+1)
     plt.imshow(img/255.)
     plt.axis("off")
     if(predicted_class == i):
-      plt.title(f"ACTUAL:{i} PREDICTED:{predicted_class}",c = "g")
+      plt.title(f"ACTUAL:{i} PRED:{predicted_class} PROB:{pred_prob:.2f}",c = "g")
     else:
-      plt.title(f"ACTUAL:{i} PREDICTED:{predicted_class}",c = "r")
+      plt.title(f"ACTUAL:{i} PRED:{predicted_class} PROB:{pred_prob:.2f}",c = "r")
